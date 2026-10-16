@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <body style="font-family: sans-serif; font-size: 13px; margin: 4px">
+    <!--
+      Loaded from 127.0.0.1 (a different *site* than localhost).
+      It embeds a localhost frame again, so that frame's chain is
+      localhost -> 127.0.0.1 -> localhost and gets the "cross-site ancestor"
+      bit in its storage key: a separate localhost storage bucket.
+    -->
+    <div>relay frame: <b id="origin"></b></div>
+    <iframe id="inner" width="230" height="110" style="border: 1px dashed #999"></iframe>
+    <script>
+      localStorage.setItem('relay_status', 'active');
+      document.getElementById('origin').textContent = location.origin;
+      document.getElementById('inner').src =
+        'http://localhost:' + location.port + '/sample.html?label=cross-site-ancestor';
+      console.log("relay loc", Object.entries(localStorage))
+    </script>
+  </body>
+</html>
